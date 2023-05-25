@@ -1,0 +1,63 @@
+import { type NextFunction, type Response } from "express";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+import {
+  type UserCredentialsStructure,
+  type CustomRequest,
+  type UserCredentials,
+} from "../../../types";
+import { loginUser } from "./userControllers";
+import User from "../../../database/models/User";
+import { Types } from "mongoose";
+
+describe("Given a loginUser controller", () => {
+  describe("When it receives a valid username and password in the request", () => {
+    const userCredentials: UserCredentials = {
+      username: "admin",
+      password: "admin",
+    };
+    const req: Partial<CustomRequest> = {
+      body: userCredentials,
+    };
+
+    const res: Partial<Response> = {
+      status: jest.fn().mockReturnThis(),
+      json: jest.fn(),
+    };
+    const mockToken = "token.token";
+
+    const next = jest.fn();
+
+    const mockedUser: UserCredentialsStructure = {
+      _id: new Types.ObjectId().toString(),
+      username: "admin",
+      password: "admin",
+    };
+
+    User.findOne = jest.fn().mockReturnValue({
+      exec: jest.fn().mockResolvedValue(mockedUser),
+    });
+    bcrypt.compare = jest.fn().mockResolvedValue(true);
+
+    jwt.sign = jest.fn().mockReturnValue(mockToken);
+    test("Then it should send a response with status code 200 and a token", async () => {
+      const expectedStatus = 200;
+
+      await loginUser(
+        req as CustomRequest,
+        res as Response,
+        next as NextFunction
+      );
+      expect(res.status).toHaveBeenCalledWith(expectedStatus);
+    });
+
+    test("Then it should call the response's json method with the token", async () => {
+      await loginUser(
+        req as CustomRequest,
+        res as Response,
+        next as NextFunction
+      );
+      expect(res.json).toHaveBeenCalledWith({ token: mockToken });
+    });
+  });
+});
