@@ -1,5 +1,5 @@
 import type { NextFunction, Request, Response } from "express";
-import { notFoundError } from "./errorMiddleware.js";
+import { generalError, notFoundError } from "./errorMiddleware.js";
 import CustomError from "../../CustomError/CustomError.js";
 
 type CustomResponse = Pick<Response, "status" | "json">;
@@ -32,6 +32,43 @@ describe("Given a notFoundError middleware", () => {
       );
 
       expect(next).toHaveBeenCalledWith(customError);
+    });
+  });
+});
+
+describe("Given a generalError middleware", () => {
+  describe("When it receives an error without a status code", () => {
+    test("Then it should call a response with the status code 500 and the message 'Interal Server Error", () => {
+      const error = new Error("Internal Server Error");
+      const expectedStatusCode = 500;
+      const { message } = error;
+
+      generalError(
+        error as CustomError,
+        request as Request,
+        response as Response,
+        next as NextFunction
+      );
+
+      expect(response.status).toHaveBeenCalledWith(expectedStatusCode);
+      expect(response.json).toHaveBeenCalledWith({ message });
+    });
+  });
+  describe("When it receives an error with a 404 status code and the message 'Endpoint not found'", () => {
+    describe("Then it should call a response with the status code 404 and the message 'Endpoint not found", () => {
+      const error = new CustomError(404, "Endpoit not found");
+      const expectedStatusCode = 404;
+      const message = "Endpoit not found";
+
+      generalError(
+        error,
+        request as Request,
+        response as Response,
+        next as NextFunction
+      );
+
+      expect(response.status).toHaveBeenCalledWith(expectedStatusCode);
+      expect(response.json).toHaveBeenCalledWith({ message });
     });
   });
 });
