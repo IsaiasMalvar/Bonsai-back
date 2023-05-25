@@ -16,10 +16,6 @@ beforeEach(() => {
   jest.clearAllMocks();
 });
 
-beforeEach(() => {
-  jest.clearAllMocks();
-});
-
 describe("Given a notFoundError middleware", () => {
   describe("When it receives a request and a next function", () => {
     test("Then it should call the next function with the error message 'Endpoint not found'", () => {
