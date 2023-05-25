@@ -12,6 +12,12 @@
         "no-unused-vars": "error",
         "no-console": "error"
       }
+    },
+    {
+      "files": "index.ts",
+      "rules": {
+        "@typescript-eslint/no-unsafe-call": "off"
+      }
     }
   ],
   "parserOptions": {
