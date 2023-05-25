@@ -9,25 +9,30 @@ import {
 import { loginUser } from "./userControllers";
 import User from "../../../database/models/User";
 import { Types } from "mongoose";
+import CustomError from "../../../CustomError/CustomError";
+
+beforeEach(() => {
+  jest.clearAllMocks();
+});
 
 describe("Given a loginUser controller", () => {
+  const userCredentials: UserCredentials = {
+    username: "admin",
+    password: "admin",
+  };
+  const req: Partial<CustomRequest> = {
+    body: userCredentials,
+  };
+
+  const res: Partial<Response> = {
+    status: jest.fn().mockReturnThis(),
+    json: jest.fn(),
+  };
+  const mockToken = "token.token";
+
+  jwt.sign = jest.fn().mockReturnValue(mockToken);
+  const next = jest.fn();
   describe("When it receives a valid username and password in the request", () => {
-    const userCredentials: UserCredentials = {
-      username: "admin",
-      password: "admin",
-    };
-    const req: Partial<CustomRequest> = {
-      body: userCredentials,
-    };
-
-    const res: Partial<Response> = {
-      status: jest.fn().mockReturnThis(),
-      json: jest.fn(),
-    };
-    const mockToken = "token.token";
-
-    const next = jest.fn();
-
     const mockedUser: UserCredentialsStructure = {
       _id: new Types.ObjectId().toString(),
       username: "admin",
@@ -39,7 +44,6 @@ describe("Given a loginUser controller", () => {
     });
     bcrypt.compare = jest.fn().mockResolvedValue(true);
 
-    jwt.sign = jest.fn().mockReturnValue(mockToken);
     test("Then it should send a response with status code 200 and a token", async () => {
       const expectedStatus = 200;
 
@@ -58,6 +62,23 @@ describe("Given a loginUser controller", () => {
         next as NextFunction
       );
       expect(res.json).toHaveBeenCalledWith({ token: mockToken });
+    });
+  });
+  describe("When it receives a request with wrong credentials", () => {
+    test("then it should call the received next function with a 401 status code and a 'Wrong credentials' message", async () => {
+      const error = new CustomError(401, "Wrong credentials");
+      User.findOne = jest.fn().mockReturnValue({
+        exec: jest.fn().mockResolvedValue(undefined),
+      });
+      bcrypt.compare = jest.fn().mockResolvedValue(false);
+
+      await loginUser(
+        req as CustomRequest,
+        res as Response,
+        next as NextFunction
+      );
+
+      expect(next).toHaveBeenCalledWith(error);
     });
   });
 });
