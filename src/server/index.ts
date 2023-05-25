@@ -2,6 +2,7 @@ import cors from "cors";
 import "../loadEnvironment.js";
 import express from "express";
 import morgan from "morgan";
+import pingController from "./controllers/pingController/pingController.js";
 
 export const app = express();
 
@@ -18,3 +19,5 @@ app.use(
 app.use(express.json());
 
 app.use(morgan("dev"));
+
+app.get("/", pingController);
