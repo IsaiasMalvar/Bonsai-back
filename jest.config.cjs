@@ -8,5 +8,6 @@ module.exports = {
     "!src/index.ts",
     "!src/server/routers/**/*",
     "!src/server/database/connectToDatabase.ts",
+    "!src/database/models/User.ts",
   ],
 };
