@@ -51,7 +51,7 @@ describe("Given a generalError middleware", () => {
     });
   });
   describe("When it receives an error with a 404 status code and the message 'Endpoint not found'", () => {
-    describe("Then it should call a response with the status code 404 and the message 'Endpoint not found", () => {
+    test("Then it should call a response with the status code 404 and the message 'Endpoint not found", () => {
       const error = new CustomError(404, "Endpoit not found");
       const expectedStatusCode = 404;
       const message = "Endpoit not found";
