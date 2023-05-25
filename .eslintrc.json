@@ -7,16 +7,22 @@
   "overrides": [
     {
       "extends": ["xo-typescript", "prettier"],
-      "files": ["*.ts", "*.tsx"],
+      "files": "*.ts",
       "rules": {
         "no-unused-vars": "error",
-        "no-console": "error"
+        "@typescript-eslint/consistent-type-definitions": ["error", "interface"]
       }
     },
     {
       "files": "index.ts",
       "rules": {
         "@typescript-eslint/no-unsafe-call": "off"
+      }
+    },
+    {
+      "files": ["src/**/models/**/*.ts"],
+      "rules": {
+        "@typescript-eslint/naming-convention": "off"
       }
     }
   ],
