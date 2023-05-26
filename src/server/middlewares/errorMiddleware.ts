@@ -5,6 +5,8 @@ import {
   privateMessageList,
   statusCodeList,
 } from "../utils/responseData/responseData.js";
+import { ValidationError } from "express-validation";
+import chalk from "chalk";
 
 const debug = createDebug("bonsai-api:server:middlewares:errorMiddlewares");
 
@@ -26,7 +28,15 @@ export const generalError = (
   res: Response,
   _next: NextFunction
 ) => {
-  debug(error.message);
+  if (error instanceof ValidationError) {
+    const validationErrorMessages = error.details.body
+      ?.map((joiError) => joiError.message)
+      .join(" & ")
+      .replaceAll('"', "");
+
+    (error as CustomError).publicMessage = validationErrorMessages;
+    debug(chalk.red(validationErrorMessages));
+  }
 
   const statusCode = error.statusCode || statusCodeList.generalError;
   const message = error.statusCode
