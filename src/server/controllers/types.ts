@@ -1,4 +1,7 @@
-interface Microstory {
+import { type Types } from "mongoose";
+
+export interface MicrostoryStructure {
+  _id: Types.ObjectId;
   title: string;
   dateOfCreation: string;
   genre: string;
@@ -7,5 +10,3 @@ interface Microstory {
   story: string;
   author: string;
 }
-
-export default Microstory;

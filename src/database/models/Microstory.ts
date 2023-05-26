@@ -1,4 +1,5 @@
 import mongoose, { Schema, Types } from "mongoose";
+import User from "./User.js";
 
 const microstorySchema = new Schema({
   title: {
@@ -24,8 +25,12 @@ const microstorySchema = new Schema({
     required: true,
   },
   author: {
+    type: String,
+    required: true,
+  },
+  user: {
     type: Types.ObjectId,
-    ref: "User",
+    ref: User,
   },
 });
 

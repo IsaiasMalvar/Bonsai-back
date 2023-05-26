@@ -1,5 +1,8 @@
 import { type NextFunction, type Request, type Response } from "express";
-import Microstory from "../../../database/models/Microstory";
+import createDebug from "debug";
+import Microstory from "../../../database/models/Microstory.js";
+
+const debug = createDebug("bonsai-api:controllers:routeControllers");
 
 const getMicrostories = async (
   req: Request,
@@ -10,6 +13,8 @@ const getMicrostories = async (
     const microstories = await Microstory.find().limit(10).exec();
     res.status(200).json({ microstories });
   } catch (error) {
+    error.message = "Database error connection";
+    debug(error.message);
     next(error);
   }
 };
