@@ -44,7 +44,7 @@ describe("Given a loginUser controller", () => {
     });
     bcrypt.compare = jest.fn().mockResolvedValue(true);
 
-    test("Then it should send a response with status code 200 and a token", async () => {
+    test("Then it should send a response with status code 200", async () => {
       const expectedStatus = 200;
 
       await loginUser(
@@ -65,7 +65,7 @@ describe("Given a loginUser controller", () => {
     });
   });
   describe("When it receives a request with wrong credentials", () => {
-    test("then it should call the received next function with a 401 status code and a 'Wrong credentials' message", async () => {
+    test("Then it should call the received next function with a 401 status code and a 'Wrong credentials' message", async () => {
       const error = new CustomError(401, "Wrong credentials");
       User.findOne = jest.fn().mockReturnValue({
         exec: jest.fn().mockResolvedValue(undefined),
