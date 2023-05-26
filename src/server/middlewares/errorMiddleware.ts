@@ -1,6 +1,10 @@
 import createDebug from "debug";
 import { type NextFunction, type Request, type Response } from "express";
 import CustomError from "../../CustomError/CustomError";
+import {
+  privateMessageList,
+  statusCodeList,
+} from "../utils/responseData/responseData";
 
 const debug = createDebug("bonsai-api:server:middlewares:errorMiddlewares");
 
@@ -9,7 +13,10 @@ export const notFoundError = (
   _res: Response,
   next: NextFunction
 ) => {
-  const error = new CustomError(404, "Endpoint not found");
+  const error = new CustomError(
+    statusCodeList.notFound,
+    privateMessageList.notFound
+  );
   next(error);
 };
 
@@ -21,10 +28,10 @@ export const generalError = (
 ) => {
   debug(error.message);
 
-  const statusCode = error.statusCode || 500;
+  const statusCode = error.statusCode || statusCodeList.generalError;
   const message = error.statusCode
     ? error.publicMessage
-    : "Internal Server Error";
+    : privateMessageList.generalError;
 
   res.status(statusCode).json({ message });
 };

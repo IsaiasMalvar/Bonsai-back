@@ -1,6 +1,10 @@
 import type { NextFunction, Request, Response } from "express";
 import { generalError, notFoundError } from "./errorMiddleware.js";
 import CustomError from "../../CustomError/CustomError.js";
+import {
+  privateMessageList,
+  statusCodeList,
+} from "../utils/responseData/responseData.js";
 
 type CustomResponse = Pick<Response, "status" | "json">;
 
@@ -19,7 +23,10 @@ beforeEach(() => {
 describe("Given a notFoundError middleware", () => {
   describe("When it receives a request and a next function", () => {
     test("Then it should call the next function with the error message 'Endpoint not found'", () => {
-      const customError = new CustomError(404, "Endpoint not found");
+      const customError = new CustomError(
+        statusCodeList.notFound,
+        privateMessageList.notFound
+      );
 
       notFoundError(
         request as Request,
@@ -35,7 +42,7 @@ describe("Given a notFoundError middleware", () => {
 describe("Given a generalError middleware", () => {
   describe("When it receives an error without a status code", () => {
     test("Then it should call a response with the status code 500 and the message 'Interal Server Error", () => {
-      const error = new Error("Internal Server Error");
+      const error = new Error(privateMessageList.generalError);
       const expectedStatusCode = 500;
       const { message } = error;
 
@@ -52,9 +59,12 @@ describe("Given a generalError middleware", () => {
   });
   describe("When it receives an error with a 404 status code and the message 'Endpoint not found'", () => {
     test("Then it should call a response with the status code 404 and the message 'Endpoint not found", () => {
-      const error = new CustomError(404, "Endpoit not found");
+      const error = new CustomError(
+        statusCodeList.notFound,
+        privateMessageList.notFound
+      );
       const expectedStatusCode = 404;
-      const message = "Endpoit not found";
+      const message = "Endpoint not found";
 
       generalError(
         error,

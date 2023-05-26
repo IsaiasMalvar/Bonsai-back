@@ -4,6 +4,10 @@ import { type CustomRequest } from "../../../types";
 import User from "../../../database/models/User";
 import CustomError from "../../../CustomError/CustomError";
 import jwt, { type JwtPayload } from "jsonwebtoken";
+import {
+  privateMessageList,
+  statusCodeList,
+} from "../../utils/responseData/responseData";
 
 export const loginUser = async (
   req: CustomRequest,
@@ -16,7 +20,10 @@ export const loginUser = async (
     const user = await User.findOne({ username }).exec();
 
     if (!user || !(await bcrypt.compare(password, user.password))) {
-      const error = new CustomError(401, "Wrong credentials");
+      const error = new CustomError(
+        statusCodeList.wrongCredentials,
+        privateMessageList.wrongCredentials
+      );
       throw error;
     }
 

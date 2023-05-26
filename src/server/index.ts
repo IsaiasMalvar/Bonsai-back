@@ -3,7 +3,7 @@ import "../loadEnvironment.js";
 import express from "express";
 import morgan from "morgan";
 import pingController from "./controllers/pingController/pingController.js";
-import paths from "./paths/paths.js";
+import paths from "./utils/paths/paths.js";
 
 export const app = express();
 
