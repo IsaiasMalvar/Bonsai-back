@@ -4,6 +4,8 @@ import express from "express";
 import morgan from "morgan";
 import pingController from "./controllers/pingController/pingController.js";
 import paths from "./utils/paths/paths.js";
+import { generalError, notFoundError } from "./middlewares/errorMiddleware.js";
+import userRouter from "./routers/userRouter.js";
 
 export const app = express();
 
@@ -22,3 +24,9 @@ app.use(express.json());
 app.use(morgan("dev"));
 
 app.get(paths.pingController, pingController);
+
+app.use(paths.userController, userRouter);
+
+app.use(notFoundError);
+
+app.use(generalError);

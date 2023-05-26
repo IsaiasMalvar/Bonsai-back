@@ -7,7 +7,7 @@ import { app } from "./server/index.js";
 const debug = createDebug("bonsai-api:root");
 
 const port = process.env.PORT ?? 4000;
-const mongodbConnection = process.env.MONGODB_CONNECTION;
+const mongodbConnection = process.env.MONGO_DB_CONNECTION!;
 
 if (!mongodbConnection) {
   debug(chalk.red("Missing environment variables"));
@@ -20,6 +20,7 @@ app.listen(port, () => {
 
 try {
   await connectToDatabase(mongodbConnection);
+
   debug(chalk.green("Connected to database"));
 } catch (error: unknown) {
   debug(`Error connecting to database: ${(error as Error).message}`);

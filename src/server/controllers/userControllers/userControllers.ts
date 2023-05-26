@@ -1,13 +1,13 @@
 import bcrypt from "bcryptjs";
 import { type NextFunction, type Response } from "express";
-import { type CustomRequest } from "../../../types";
-import User from "../../../database/models/User";
-import CustomError from "../../../CustomError/CustomError";
+import { type CustomRequest } from "../../../types.js";
+import User from "../../../database/models/User.js";
+import CustomError from "../../../CustomError/CustomError.js";
 import jwt, { type JwtPayload } from "jsonwebtoken";
 import {
   privateMessageList,
   statusCodeList,
-} from "../../utils/responseData/responseData";
+} from "../../utils/responseData/responseData.js";
 
 export const loginUser = async (
   req: CustomRequest,

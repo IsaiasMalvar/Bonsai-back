@@ -1,10 +1,10 @@
 import createDebug from "debug";
 import { type NextFunction, type Request, type Response } from "express";
-import CustomError from "../../CustomError/CustomError";
+import CustomError from "../../CustomError/CustomError.js";
 import {
   privateMessageList,
   statusCodeList,
-} from "../utils/responseData/responseData";
+} from "../utils/responseData/responseData.js";
 
 const debug = createDebug("bonsai-api:server:middlewares:errorMiddlewares");
 
