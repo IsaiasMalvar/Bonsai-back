@@ -1,20 +1,22 @@
-import {
-  type StatusCodeList,
-  type PrivateMessageList,
-  type PublicMessageList,
-} from "./types";
+import { type StatusCodeList, type MessageList } from "./types";
 
-export const publicMessageList: PublicMessageList = {
-  ok: "Everything is ok!",
+export const publicMessageList: MessageList = {
+  ok: {
+    ok: "Everything is ok",
+    ping: "",
+  },
   notFound: "We could not find what you were looking for!",
   generalError: "Oh no! There has been an error",
   wrongCredentials: "Sorry, wrong credentials!",
 };
 
-export const privateMessageList: PrivateMessageList = {
+export const privateMessageList: MessageList = {
   generalError: "Internal Server Error",
   notFound: "Endpoint not found",
-  ok: "OK",
+  ok: {
+    ok: "OK",
+    ping: "Ping!",
+  },
   wrongCredentials: "Wrong credentials",
 };
 
