@@ -3,6 +3,7 @@ import "../loadEnvironment.js";
 import express from "express";
 import morgan from "morgan";
 import pingController from "./controllers/pingController/pingController.js";
+import paths from "./paths/paths.js";
 
 export const app = express();
 
@@ -20,4 +21,4 @@ app.use(express.json());
 
 app.use(morgan("dev"));
 
-app.get("/", pingController);
+app.get(paths.pingController, pingController);
