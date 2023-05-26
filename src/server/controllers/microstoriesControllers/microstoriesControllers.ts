@@ -7,7 +7,7 @@ const getMicrostories = async (
   next: NextFunction
 ) => {
   try {
-    const microstories = await Microstory.find().exec();
+    const microstories = await Microstory.find().limit(10).exec();
     res.status(200).json({ microstories });
   } catch (error) {
     next(error);
