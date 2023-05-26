@@ -3,11 +3,5 @@ module.exports = {
   preset: "ts-jest",
   testMatch: ["**/src/**/*.test.ts"],
   resolver: "jest-ts-webcompat-resolver",
-  collectCoverageFrom: [
-    "src/**/*.ts",
-    "!src/index.ts",
-    "!src/server/routers/**/*",
-    "!src/database/connectToDatabase.ts",
-    "!src/database/models/User.ts",
-  ],
+  collectCoverageFrom: ["src/**/*.ts", "!src/index.ts"],
 };

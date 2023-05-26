@@ -3,7 +3,7 @@ import pingController from "./pingController";
 import {
   privateMessageList,
   statusCodeList,
-} from "../../utils/responseData/responseData";
+} from "../../utils/responseData/responseData.js";
 
 type CustomResponse = Pick<Response, "status" | "json">;
 

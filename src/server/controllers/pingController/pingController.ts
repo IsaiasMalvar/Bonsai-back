@@ -2,7 +2,7 @@ import { type Request, type Response } from "express";
 import {
   privateMessageList,
   statusCodeList,
-} from "../../utils/responseData/responseData";
+} from "../../utils/responseData/responseData.js";
 
 const pingController = (req: Request, res: Response) => {
   const message = privateMessageList.ok.ping;

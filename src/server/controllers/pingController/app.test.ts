@@ -3,7 +3,7 @@ import { app } from "../..";
 import {
   privateMessageList,
   statusCodeList,
-} from "../../utils/responseData/responseData";
+} from "../../utils/responseData/responseData.js";
 
 describe("Given a GET '/' endpoint", () => {
   describe("When it receives a request", () => {
