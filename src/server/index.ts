@@ -9,6 +9,8 @@ import {
   notFoundError,
 } from "./middlewares/error/errorMiddleware.js";
 import userRouter from "./routers/userRouter.js";
+import { auth } from "./middlewares/auth/authMiddleware.js";
+import microsRouter from "./routers/microsRouter.js";
 
 export const app = express();
 
@@ -29,6 +31,8 @@ app.use(morgan("dev"));
 app.get(paths.pingController, pingController);
 
 app.use(paths.userController, userRouter);
+
+app.use(paths.microsController, auth, microsRouter);
 
 app.use(notFoundError);
 

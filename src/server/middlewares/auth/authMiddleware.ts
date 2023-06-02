@@ -1,10 +1,10 @@
 import { type NextFunction, type Response } from "express";
 import jwt from "jsonwebtoken";
-import CustomError from "../../../CustomError/CustomError";
+import CustomError from "../../../CustomError/CustomError.js";
 import {
   publicMessageList,
   statusCodeList,
-} from "../../utils/responseData/responseData";
+} from "../../utils/responseData/responseData.js";
 import { type CustomRequest } from "../../../types";
 
 export const auth = (req: CustomRequest, res: Response, next: NextFunction) => {
