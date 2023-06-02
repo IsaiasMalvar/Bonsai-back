@@ -1,6 +1,6 @@
 import bcrypt from "bcryptjs";
 import { type NextFunction, type Response } from "express";
-import { type CustomRequest } from "../../../types.js";
+import { type UserCredentialsRequest } from "../../../types.js";
 import User from "../../../database/models/User.js";
 import CustomError from "../../../CustomError/CustomError.js";
 import jwt, { type JwtPayload } from "jsonwebtoken";
@@ -10,7 +10,7 @@ import {
 } from "../../utils/responseData/responseData.js";
 
 export const loginUser = async (
-  req: CustomRequest,
+  req: UserCredentialsRequest,
   res: Response,
   next: NextFunction
 ) => {

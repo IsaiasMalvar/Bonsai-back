@@ -1,10 +1,10 @@
 import createDebug from "debug";
 import { type NextFunction, type Request, type Response } from "express";
-import CustomError from "../../CustomError/CustomError.js";
+import CustomError from "../../../CustomError/CustomError.js";
 import {
   privateMessageList,
   statusCodeList,
-} from "../utils/responseData/responseData.js";
+} from "../../utils/responseData/responseData.js";
 import { ValidationError } from "express-validation";
 import chalk from "chalk";
 

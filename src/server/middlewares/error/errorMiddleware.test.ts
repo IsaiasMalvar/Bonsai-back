@@ -1,10 +1,10 @@
 import type { NextFunction, Request, Response } from "express";
 import { generalError, notFoundError } from "./errorMiddleware.js";
-import CustomError from "../../CustomError/CustomError.js";
+import CustomError from "../../../CustomError/CustomError.js";
 import {
   privateMessageList,
   statusCodeList,
-} from "../utils/responseData/responseData.js";
+} from "../../utils/responseData/responseData.js";
 
 type CustomResponse = Pick<Response, "status" | "json">;
 

@@ -3,7 +3,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import {
   type UserCredentialsStructure,
-  type CustomRequest,
+  type UserCredentialsRequest,
   type UserCredentials,
 } from "../../../types";
 import { loginUser } from "./userControllers";
@@ -20,7 +20,7 @@ describe("Given a loginUser controller", () => {
     username: "admin",
     password: "admin",
   };
-  const req: Partial<CustomRequest> = {
+  const req: Partial<UserCredentialsRequest> = {
     body: userCredentials,
   };
 
@@ -48,7 +48,7 @@ describe("Given a loginUser controller", () => {
       const expectedStatus = 200;
 
       await loginUser(
-        req as CustomRequest,
+        req as UserCredentialsRequest,
         res as Response,
         next as NextFunction
       );
@@ -57,7 +57,7 @@ describe("Given a loginUser controller", () => {
 
     test("Then it should call the response's json method with the token", async () => {
       await loginUser(
-        req as CustomRequest,
+        req as UserCredentialsRequest,
         res as Response,
         next as NextFunction
       );
@@ -73,7 +73,7 @@ describe("Given a loginUser controller", () => {
       bcrypt.compare = jest.fn().mockResolvedValue(false);
 
       await loginUser(
-        req as CustomRequest,
+        req as UserCredentialsRequest,
         res as Response,
         next as NextFunction
       );
