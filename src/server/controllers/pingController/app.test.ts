@@ -11,7 +11,7 @@ describe("Given a GET '/' endpoint", () => {
       const expectedStatus = statusCodeList.ok;
       const expectedMessage = privateMessageList.ok.ping;
 
-      const response = await request(app).get("/").expect(expectedStatus);
+      const response = await request(app).get("/ping").expect(expectedStatus);
 
       expect(response.body).toStrictEqual({ message: expectedMessage });
     });

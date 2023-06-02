@@ -9,8 +9,12 @@ export interface UserCredentialsStructure extends UserCredentials {
   _id: string;
 }
 
-export type CustomRequest = Request<
+export type UserCredentialsRequest = Request<
   Record<string, unknown>,
   Record<string, unknown>,
   UserCredentials
 >;
+
+export interface CustomRequest extends Request {
+  id: string;
+}
