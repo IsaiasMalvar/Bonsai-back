@@ -16,11 +16,14 @@ export const app = express();
 
 app.disable("x-powered-by");
 
-const allowedOrigin = process.env.ALLOWED_ORIGIN_DEV;
+const allowedOrigins = [
+  process.env.ALLOWED_ORIGIN_DEV!,
+  process.env.ALLOWED_ORIGIN_PROD!,
+];
 
 app.use(
   cors({
-    origin: allowedOrigin,
+    origin: allowedOrigins,
   })
 );
 
