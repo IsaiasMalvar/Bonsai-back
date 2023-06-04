@@ -1,0 +1,55 @@
+{
+  "info": {
+    "_postman_id": "3d36cdf8-ee6b-452d-b42c-04dba8b23bdf",
+    "name": "Bonsai Collection",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "27033846"
+  },
+  "item": [
+    {
+      "name": "GET /ping",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": []
+    },
+    {
+      "name": "POST /user/login/",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"username\": \"admin\",\r\n    \"password\": \"admin\"\r\n}"
+        },
+        "url": {
+          "raw": "http://localhost:4000/user/login",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "4000",
+          "path": ["user", "login"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "GET /micros",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": []
+    }
+  ]
+}
