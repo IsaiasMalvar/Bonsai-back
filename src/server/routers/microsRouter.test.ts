@@ -7,7 +7,10 @@ import { microstoryListMock } from "../../mocks/microstoriesMocks/microstoriesMo
 import { app } from "..";
 import paths from "../utils/paths/paths";
 import { tokenMock } from "../../mocks/userMocks/userMocks";
-import { statusCodeList } from "../utils/responseData/responseData";
+import {
+  publicMessageList,
+  statusCodeList,
+} from "../utils/responseData/responseData";
 
 let server: MongoMemoryServer;
 
@@ -46,6 +49,27 @@ describe("Given a GET '/microstories' endpoint", () => {
       await request(app)
         .get(paths.microsController)
         .expect(statusCodeList.wrongCredentials);
+    });
+  });
+});
+
+describe("Given a DELETE '/micros/:microsId'", () => {
+  describe("When it receives a request with a valid microId on the params", () => {
+    beforeEach(async () => {
+      await Microstory.create(microstoryListMock);
+    });
+    test("Then it should respond with a 200 status code and the message 'Micro deleted successfully!'", async () => {
+      const expectedStatusCode = statusCodeList.ok;
+      const expectedMessage = publicMessageList.deleted;
+
+      const micros = await Microstory.find().exec();
+
+      const response = await request(app)
+        .delete(`/micros/${micros[0]._id.toString()}`)
+        .set("Authorization", `Bearer ${tokenMock}`)
+        .expect(expectedStatusCode);
+
+      expect(response.body.message).toBe(expectedMessage);
     });
   });
 });

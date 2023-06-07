@@ -1,8 +1,8 @@
 import { type NextFunction, type Request, type Response } from "express";
-import getMicrostories from "./microstoriesControllers";
-import Microstory from "../../../database/models/Microstory";
-import { microstoryListMock } from "../../../mocks/microstoriesMocks/microstoriesMocks";
-import { statusCodeList } from "../../utils/responseData/responseData";
+import Microstory from "../../../../database/models/Microstory";
+import { microstoryListMock } from "../../../../mocks/microstoriesMocks/microstoriesMocks";
+import { statusCodeList } from "../../../utils/responseData/responseData";
+import { getMicrostories } from "../microstoriesControllers";
 
 beforeEach(() => {
   jest.clearAllMocks();
