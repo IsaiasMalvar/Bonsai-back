@@ -18,3 +18,10 @@ export type UserCredentialsRequest = Request<
 export interface CustomRequest extends Request {
   id: string;
 }
+
+export interface CustomParamRequest extends Request {
+  id: string;
+  params: {
+    microId: string;
+  };
+}
