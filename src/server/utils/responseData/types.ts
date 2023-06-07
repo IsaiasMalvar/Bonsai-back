@@ -7,6 +7,8 @@ export interface MessageList {
   notFound: string;
   wrongCredentials: string;
   generalError: string;
+  deleted: string;
+  deletedError: string;
 }
 
 export interface StatusCodeList {
