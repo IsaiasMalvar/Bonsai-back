@@ -8,7 +8,7 @@ import { app } from "..";
 import paths from "../utils/paths/paths";
 import { tokenMock } from "../../mocks/userMocks/userMocks";
 import {
-  publicMessageList,
+  privateMessageList,
   statusCodeList,
 } from "../utils/responseData/responseData";
 
@@ -58,9 +58,9 @@ describe("Given a DELETE '/micros/:microsId'", () => {
     beforeEach(async () => {
       await Microstory.create(microstoryListMock);
     });
-    test("Then it should respond with a 200 status code and the message 'Micro deleted successfully!'", async () => {
+    test("Then it should respond with a 200 status code and the message 'Micro deleted'", async () => {
       const expectedStatusCode = statusCodeList.ok;
-      const expectedMessage = publicMessageList.deleted;
+      const expectedMessage = privateMessageList.deleted;
 
       const micros = await Microstory.find().exec();
 
