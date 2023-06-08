@@ -5,9 +5,9 @@ import { type CustomParamRequest, type CustomRequest } from "../../../../types";
 import { deleteMicrostory } from "../microstoriesControllers";
 import {
   privateMessageList,
-  publicMessageList,
   statusCodeList,
 } from "../../../utils/responseData/responseData";
+import CustomError from "../../../../CustomError/CustomError";
 
 beforeEach(() => {
   jest.clearAllMocks();
@@ -30,58 +30,37 @@ describe("Given a deleteMicrostories controller", () => {
     },
     id,
   };
-  describe("When it receives a request with a valid micro id , a response and next function", () => {
-    test("Then it should call status response method with status code '200' and the message 'Micro deleted successfully!'", async () => {
-      const expectedStatusCode = statusCodeList.ok;
-      const expectedMessage = publicMessageList.deleted;
 
-      Microstory.findById = jest.fn().mockReturnValue({
-        exec: jest.fn().mockResolvedValue(microId),
-      });
+  describe("When it receives a request with an existing micro id , a response and next function", () => {
+    test("Then it should call status response method with status code '200' and json method with message 'Micro deleted'", async () => {
+      const expectedCode = statusCodeList.ok;
+      const expectedMessage = privateMessageList.deleted;
+
       Microstory.findByIdAndDelete = jest.fn().mockReturnValue({
         exec: jest.fn().mockResolvedValue(microId),
       });
 
       await deleteMicrostory(req as CustomParamRequest, res as Response, next);
 
-      expect(res.status).toHaveBeenCalledWith(expectedStatusCode);
+      expect(res.status).toHaveBeenCalledWith(expectedCode);
       expect(res.json).toHaveBeenCalledWith({ message: expectedMessage });
     });
   });
-  describe("When it receives a request with an invalid microid, a response and next function", () => {
-    test("Then it should call status response method with status code 400 and the message 'Dang it! The micro could not be deleted'", async () => {
-      const invalidMicroId = new Types.ObjectId().toString();
-      const expectedStatusCode = statusCodeList.notFound;
-      const expectedMessage = publicMessageList.deletedError;
 
-      const req: Partial<CustomRequest> = {
-        params: {
-          microId,
-        },
-        id: invalidMicroId,
-      };
+  describe("When it receives a request with an invalid micro id, a response and next function", () => {
+    test("Then it should call status response method with status code 400 and json method with message 'Micro could not be deleted'", async () => {
+      const next = jest.fn();
+      const expectedCode = statusCodeList.notFound;
+      const expectedMessage = privateMessageList.deletedError;
+      const error = new CustomError(expectedCode, expectedMessage);
 
-      Microstory.findById = jest.fn().mockReturnValue({
+      Microstory.findByIdAndDelete = jest.fn().mockReturnValue({
         exec: jest.fn().mockResolvedValue(undefined),
       });
 
       await deleteMicrostory(req as CustomParamRequest, res as Response, next);
 
-      expect(res.status).toHaveBeenCalledWith(expectedStatusCode);
-      expect(res.json).toHaveBeenCalledWith({ message: expectedMessage });
-    });
-  });
-  describe("When it receives a request with an invalid micro id, a response and next function", () => {
-    test("Then it should call the next function with the error 'Micro could not be deleted'", async () => {
-      const expectedError = new Error(privateMessageList.deletedError);
-
-      Microstory.findById = jest.fn().mockReturnValue({
-        exec: jest.fn().mockRejectedValue(expectedError),
-      });
-
-      await deleteMicrostory(req as CustomParamRequest, res as Response, next);
-
-      expect(next).toHaveBeenCalledWith(expectedError);
+      expect(next).toHaveBeenCalledWith(error);
     });
   });
 });

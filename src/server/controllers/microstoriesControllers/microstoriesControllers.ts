@@ -4,9 +4,9 @@ import Microstory from "../../../database/models/Microstory.js";
 import { type CustomParamRequest } from "../../../types.js";
 import {
   privateMessageList,
-  publicMessageList,
   statusCodeList,
 } from "../../utils/responseData/responseData.js";
+import CustomError from "../../../CustomError/CustomError.js";
 
 const debug = createDebug("bonsai-api:controllers:routeControllers");
 
@@ -31,20 +31,19 @@ export const deleteMicrostory = async (
   next: NextFunction
 ) => {
   const { microId } = req.params;
+
   try {
-    const foundMicroId = await Microstory.findById(microId).exec();
+    const micro = await Microstory.findByIdAndDelete(microId).exec();
 
-    if (foundMicroId) {
-      await Microstory.findByIdAndDelete(microId).exec();
-      res.status(200).json({ message: publicMessageList.deleted });
-    } else {
-      res
-        .status(statusCodeList.notFound)
-        .json({ message: publicMessageList.deletedError });
+    if (!micro) {
+      throw new CustomError(
+        statusCodeList.notFound,
+        privateMessageList.deletedError
+      );
     }
-  } catch (error) {
-    error.message = privateMessageList.deletedError;
 
+    res.status(200).json({ message: privateMessageList.deleted });
+  } catch (error) {
     next(error);
   }
 };
