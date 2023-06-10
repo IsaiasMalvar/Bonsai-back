@@ -9,6 +9,8 @@ export interface MessageList {
   generalError: string;
   deleted: string;
   deletedError: string;
+  create: string;
+  createError: string;
 }
 
 export interface StatusCodeList {
@@ -16,4 +18,6 @@ export interface StatusCodeList {
   notFound: number;
   wrongCredentials: number;
   generalError: number;
+  add: number;
+  badRequest: number;
 }

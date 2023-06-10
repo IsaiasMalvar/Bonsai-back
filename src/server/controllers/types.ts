@@ -10,3 +10,13 @@ export interface MicrostoryStructure {
   story: string;
   author: string;
 }
+
+export interface RequestCreateMicroData {
+  title: string;
+  dateOfCreation: string;
+  genre: string;
+  isPublic: boolean;
+  image: string;
+  story: string;
+  author: string;
+}

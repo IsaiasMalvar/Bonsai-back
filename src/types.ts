@@ -1,4 +1,5 @@
 import { type Request } from "express";
+import { type RequestCreateMicroData } from "./server/controllers/types";
 
 export interface UserCredentials {
   username: string;
@@ -24,4 +25,9 @@ export interface CustomParamRequest extends Request {
   params: {
     microId: string;
   };
+}
+
+export interface CustomCreateRequest extends Request {
+  id: string;
+  body: RequestCreateMicroData;
 }
