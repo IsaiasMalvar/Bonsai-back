@@ -20,4 +20,5 @@ export interface StatusCodeList {
   generalError: number;
   add: number;
   badRequest: number;
+  created: number;
 }

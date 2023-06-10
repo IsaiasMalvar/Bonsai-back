@@ -18,7 +18,7 @@ describe("Given a createMicro controller", () => {
 
   describe("When it receives a request with valid micro on body, a response and next function", () => {
     test("Then it should call status response method with status code '200' and json response method with the micrp created ", async () => {
-      const expectedCode = statusCodeList.ok;
+      const expectedCode = statusCodeList.created;
 
       const req: Partial<CustomCreateRequest> = {
         id: "646f93762f3216ee0f1d4b8d",
