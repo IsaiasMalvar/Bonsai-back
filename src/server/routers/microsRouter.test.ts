@@ -3,7 +3,10 @@ import { MongoMemoryServer } from "mongodb-memory-server";
 import connectToDatabase from "../../database/connectToDatabase";
 import mongoose from "mongoose";
 import Microstory from "../../database/models/Microstory";
-import { microstoryListMock } from "../../mocks/microstoriesMocks/microstoriesMocks";
+import {
+  microMock,
+  microstoryListMock,
+} from "../../mocks/microstoriesMocks/microstoriesMocks";
 import { app } from "..";
 import paths from "../utils/paths/paths";
 import { tokenMock } from "../../mocks/userMocks/userMocks";
@@ -44,7 +47,7 @@ describe("Given a GET '/microstories' endpoint", () => {
     });
   });
 
-  describe("When it recieve a request with a not valid token", () => {
+  describe("When it receives a request with a not valid token", () => {
     test("Then it should return a statusCode 401 ", async () => {
       await request(app)
         .get(paths.microsController)
@@ -70,6 +73,22 @@ describe("Given a DELETE '/micros/:microsId'", () => {
         .expect(expectedStatusCode);
 
       expect(response.body.message).toBe(expectedMessage);
+    });
+  });
+});
+
+describe("Given a POST '/micros/create' endpoint ", () => {
+  describe("When it receives a request with a valid micro on body", () => {
+    test("Then it should respond a status 200 and a micro created", async () => {
+      const statusCodeExpected = statusCodeList.ok;
+
+      const response = await request(app)
+        .post(`${paths.microsController}${paths.createController}`)
+        .set("Authorization", `Bearer ${tokenMock}`)
+        .send(microMock)
+        .expect(statusCodeExpected);
+
+      expect(response.body).toHaveProperty("micro.title");
     });
   });
 });
