@@ -10,6 +10,7 @@ import {
 } from "./middlewares/error/errorMiddleware.js";
 import userRouter from "./routers/userRouter.js";
 import microsRouter from "./routers/microsRouter.js";
+import { auth } from "./middlewares/auth/authMiddleware.js";
 
 export const app = express();
 
@@ -34,7 +35,7 @@ app.get(paths.pingController, pingController);
 
 app.use(paths.userController, userRouter);
 
-app.use(paths.microsController, microsRouter);
+app.use(paths.microsController, auth, microsRouter);
 
 app.use(notFoundError);
 

@@ -35,4 +35,5 @@ export const statusCodeList: StatusCodeList = {
   wrongCredentials: 401,
   add: 201,
   badRequest: 400,
+  created: 201,
 };

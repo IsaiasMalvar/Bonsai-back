@@ -80,7 +80,7 @@ describe("Given a DELETE '/micros/:microsId'", () => {
 describe("Given a POST '/micros/create' endpoint ", () => {
   describe("When it receives a request with a valid micro on body", () => {
     test("Then it should respond a status 200 and a micro created", async () => {
-      const statusCodeExpected = statusCodeList.ok;
+      const statusCodeExpected = statusCodeList.created;
 
       const response = await request(app)
         .post(`${paths.microsController}${paths.createController}`)

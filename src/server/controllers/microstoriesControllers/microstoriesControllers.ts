@@ -66,7 +66,7 @@ export const createMicro = async (
       user: new Types.ObjectId(id),
     });
 
-    res.status(200).json({ micro: microCreated });
+    res.status(201).json({ micro: microCreated });
   } catch (error: unknown) {
     debug(chalk((error as Error).message));
     next(error);
