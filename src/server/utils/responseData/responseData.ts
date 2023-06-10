@@ -10,6 +10,8 @@ export const publicMessageList: MessageList = {
   wrongCredentials: "Sorry, wrong credentials!",
   deleted: "Micro deleted successfully!",
   deletedError: "Dang it! The micro could not be deleted",
+  create: "Micro created",
+  createError: "Micro could not be created",
 };
 
 export const privateMessageList: MessageList = {
@@ -22,6 +24,8 @@ export const privateMessageList: MessageList = {
   wrongCredentials: "Wrong credentials",
   deleted: "Micro deleted",
   deletedError: "Micro could not be deleted",
+  create: "Micro created",
+  createError: "Micro could not be created",
 };
 
 export const statusCodeList: StatusCodeList = {
@@ -29,4 +33,6 @@ export const statusCodeList: StatusCodeList = {
   notFound: 404,
   ok: 200,
   wrongCredentials: 401,
+  add: 201,
+  badRequest: 400,
 };

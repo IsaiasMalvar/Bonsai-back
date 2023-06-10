@@ -3,6 +3,7 @@ interface PathStructure {
   loginController: string;
   userController: string;
   microsController: string;
+  createController: string;
 }
 
 export default PathStructure;
