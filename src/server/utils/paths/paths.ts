@@ -5,6 +5,7 @@ const paths: PathStructure = {
   loginController: "/login",
   userController: "/user",
   microsController: "/micros",
+  createController: "/create",
 };
 
 export default paths;
