@@ -1,7 +1,7 @@
 import { Joi, validate } from "express-validation";
 import { type RequestCreateMicroData } from "../controllers/types";
 
-const microStorySchema = {
+const microstory = {
   body: Joi.object<RequestCreateMicroData>({
     author: Joi.string().required(),
     dateOfCreation: Joi.string().required(),
@@ -13,8 +13,4 @@ const microStorySchema = {
   }),
 };
 
-export const microValidation = validate(
-  microStorySchema,
-  {},
-  { abortEarly: false }
-);
+export const microValidation = validate(microstory, {}, { abortEarly: false });
