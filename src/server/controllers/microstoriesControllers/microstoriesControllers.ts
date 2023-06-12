@@ -1,7 +1,8 @@
-import { type NextFunction, type Request, type Response } from "express";
+import { type NextFunction, type Response } from "express";
 import createDebug from "debug";
 import Microstory from "../../../database/models/Microstory.js";
 import {
+  type CustomCountRequest,
   type CustomCreateRequest,
   type CustomParamRequest,
 } from "../../../types.js";
@@ -16,15 +17,19 @@ import chalk from "chalk";
 const debug = createDebug("bonsai-api:controllers:routeControllers");
 
 export const getMicrostories = async (
-  req: Request,
+  req: CustomCountRequest,
   res: Response,
   next: NextFunction
 ) => {
+  const limit = Number(req.query.limit);
+  const skip = Number(req.query.skip);
   try {
-    const microstories = await Microstory.find().limit(10).exec();
-    res.status(200).json({ microstories });
+    const microstories = await Microstory.find().skip(skip).limit(limit).exec();
+    const totalMicrostories = await Microstory.where().countDocuments();
+
+    res.status(200).json({ microstories, totalMicrostories });
   } catch (error) {
-    error.message = privateMessageList.deletedError;
+    error.message = privateMessageList.generalError;
     debug(error.message);
     next(error);
   }
