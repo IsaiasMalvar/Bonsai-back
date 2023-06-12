@@ -31,3 +31,10 @@ export interface CustomCreateRequest extends Request {
   id: string;
   body: RequestCreateMicroData;
 }
+
+export interface CustomCountRequest extends Request {
+  query: {
+    limit: string;
+    skip: string;
+  };
+}
