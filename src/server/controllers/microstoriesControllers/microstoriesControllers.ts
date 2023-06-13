@@ -24,7 +24,11 @@ export const getMicrostories = async (
   const limit = Number(req.query.limit);
   const skip = Number(req.query.skip);
   try {
-    const microstories = await Microstory.find().skip(skip).limit(limit).exec();
+    const microstories = await Microstory.find()
+      .sort({ _id: -1 })
+      .skip(skip)
+      .limit(limit)
+      .exec();
     const totalMicrostories = await Microstory.where().countDocuments();
 
     res.status(200).json({ microstories, totalMicrostories });
@@ -74,6 +78,31 @@ export const createMicro = async (
     res.status(201).json({ micro: microCreated });
   } catch (error: unknown) {
     debug(chalk((error as Error).message));
+    next(error);
+  }
+};
+
+export const getMicrostory = async (
+  req: CustomParamRequest,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const { microId } = req.params;
+
+    const microById = await Microstory.findById(microId).exec();
+
+    if (!microById) {
+      const error = new CustomError(
+        statusCodeList.notFound,
+        privateMessageList.retrievedError
+      );
+
+      throw error;
+    }
+
+    res.status(statusCodeList.ok).json({ microById });
+  } catch (error) {
     next(error);
   }
 };
