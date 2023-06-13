@@ -11,6 +11,8 @@ export interface MessageList {
   deletedError: string;
   create: string;
   createError: string;
+  retrieved: string;
+  retrievedError: string;
 }
 
 export interface StatusCodeList {

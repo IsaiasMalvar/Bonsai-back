@@ -12,6 +12,8 @@ export const publicMessageList: MessageList = {
   deletedError: "Dang it! The micro could not be deleted",
   create: "Micro created",
   createError: "Micro could not be created",
+  retrieved: "Micro retrieved from database",
+  retrievedError: "Micro could not be retrieved",
 };
 
 export const privateMessageList: MessageList = {
@@ -26,6 +28,8 @@ export const privateMessageList: MessageList = {
   deletedError: "Micro could not be deleted",
   create: "Micro created",
   createError: "Micro could not be created",
+  retrieved: "Micro retrieved from database",
+  retrievedError: "Micro could not be retrieved",
 };
 
 export const statusCodeList: StatusCodeList = {
