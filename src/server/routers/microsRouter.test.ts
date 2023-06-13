@@ -6,6 +6,7 @@ import Microstory from "../../database/models/Microstory";
 import {
   microMock,
   microstoryListMock,
+  microstoryListMockById,
 } from "../../mocks/microstoriesMocks/microstoriesMocks";
 import { app } from "..";
 import paths from "../utils/paths/paths";
@@ -89,6 +90,27 @@ describe("Given a POST '/micros/create' endpoint ", () => {
         .expect(statusCodeExpected);
 
       expect(response.body).toHaveProperty("micro.title");
+    });
+  });
+});
+
+describe("Given a GET '/micros/:microId' endpoint ", () => {
+  describe("When it receives a request with a valid micro id ", () => {
+    beforeEach(async () => {
+      await Microstory.create(microstoryListMock);
+    });
+    test("Then it should respond with a status 200 and the matching micro", async () => {
+      const statusCodeExpected = statusCodeList.ok;
+
+      const response = await request(app)
+        .get(
+          `${paths.microsController}/${microstoryListMock[0]._id.toString()}`
+        )
+        .set("Authorization", `Bearer ${tokenMock}`)
+
+        .expect(statusCodeExpected);
+
+      expect(response.body.microById).toStrictEqual(microstoryListMockById[0]);
     });
   });
 });

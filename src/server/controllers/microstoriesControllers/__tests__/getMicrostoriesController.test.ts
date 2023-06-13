@@ -30,9 +30,11 @@ describe("Given a getMicrostories controller", () => {
       const expectedStatus = statusCodeList.ok;
 
       Microstory.find = jest.fn().mockReturnValue({
-        skip: jest.fn().mockReturnValue({
-          limit: jest.fn().mockReturnValue({
-            exec: jest.fn().mockResolvedValue(microstoryListMock),
+        sort: jest.fn().mockReturnValue({
+          skip: jest.fn().mockReturnValue({
+            limit: jest.fn().mockReturnValue({
+              exec: jest.fn().mockResolvedValue(microstoryListMock),
+            }),
           }),
         }),
       });

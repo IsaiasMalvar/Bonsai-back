@@ -17,7 +17,7 @@ export const microstoryMock: MicrostoryStructure = {
 
 export const microstoryListMock: MicrostoryStructure[] = [
   {
-    _id: new Types.ObjectId(),
+    _id: new Types.ObjectId("6486100d5041eeded9e36e3a"),
     title: "The Lost Key",
     dateOfCreation: "2022-10-15",
     genre: "Horror",
@@ -57,3 +57,26 @@ export const microMock: RequestCreateMicroData = {
   story: "In a quiet town, a mysterious key was discovered...",
   author: "Tomas",
 };
+
+export const microstoryListMockById = [
+  {
+    id: "6486100d5041eeded9e36e3a",
+    title: "The Lost Key",
+    dateOfCreation: "2022-10-15",
+    genre: "Horror",
+    isPublic: true,
+    image: "https://example.com/images/lost-key.jpg",
+    story: "In a quiet town, a mysterious key was discovered...",
+    author: "Tomas",
+  },
+  {
+    _id: new Types.ObjectId(),
+    title: "Sunset Dreams",
+    dateOfCreation: "2023-01-02",
+    genre: "Horror",
+    isPublic: true,
+    image: "https://example.com/images/sunset-dreams.jpg",
+    story: "As the sun dipped below the horizon, their hearts intertwined...",
+    author: "Tomenos",
+  },
+];
