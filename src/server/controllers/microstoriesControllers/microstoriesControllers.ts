@@ -23,15 +23,32 @@ export const getMicrostories = async (
 ) => {
   const limit = Number(req.query.limit);
   const skip = Number(req.query.skip);
-  try {
-    const microstories = await Microstory.find()
-      .sort({ _id: -1 })
-      .skip(skip)
-      .limit(limit)
-      .exec();
-    const totalMicrostories = await Microstory.where().countDocuments();
+  const { filter } = req.query;
+  const { filterValue } = req.query;
 
-    res.status(200).json({ microstories, totalMicrostories });
+  try {
+    if (filter) {
+      const microstories = await Microstory.find({ [filter]: filterValue })
+        .skip(skip)
+        .limit(limit)
+        .exec();
+      const totalMicrostories = await Microstory.where({
+        [filter]: filterValue,
+      })
+        .countDocuments()
+        .exec();
+
+      res.status(200).json({ microstories, totalMicrostories });
+    } else {
+      const microstories = await Microstory.find()
+        .sort({ _id: -1 })
+        .skip(skip)
+        .limit(limit)
+        .exec();
+      const totalMicrostories = await Microstory.where().countDocuments();
+
+      res.status(200).json({ microstories, totalMicrostories });
+    }
   } catch (error) {
     error.message = privateMessageList.generalError;
     debug(error.message);
