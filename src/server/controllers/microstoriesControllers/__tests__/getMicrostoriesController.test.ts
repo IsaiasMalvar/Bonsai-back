@@ -21,8 +21,10 @@ describe("Given a getMicrostories controller", () => {
 
   const req = {
     query: {
-      limit: 10,
-      skip: 20,
+      limit: 20,
+      skip: 0,
+      filter: "genre",
+      filterValue: "Horror",
     },
   };
   describe("When it receives a response", () => {
@@ -30,19 +32,18 @@ describe("Given a getMicrostories controller", () => {
       const expectedStatus = statusCodeList.ok;
 
       Microstory.find = jest.fn().mockReturnValue({
-        sort: jest.fn().mockReturnValue({
-          skip: jest.fn().mockReturnValue({
-            limit: jest.fn().mockReturnValue({
-              exec: jest.fn().mockResolvedValue(microstoryListMock),
-            }),
+        skip: jest.fn().mockReturnValue({
+          limit: jest.fn().mockReturnValue({
+            exec: jest.fn().mockResolvedValue(microstoryListMock),
           }),
         }),
       });
 
       Microstory.where = jest.fn().mockReturnValue({
-        countDocuments: jest.fn().mockReturnValue(microstoryListMock.length),
+        countDocuments: jest.fn().mockReturnValue({
+          exec: jest.fn().mockReturnValue(microstoryListMock.length),
+        }),
       });
-
       await getMicrostories(
         req as unknown as CustomCountRequest,
         res as Response,

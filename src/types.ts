@@ -36,5 +36,7 @@ export interface CustomCountRequest extends Request {
   query: {
     limit: string;
     skip: string;
+    filter?: string;
+    filterValue?: string;
   };
 }
