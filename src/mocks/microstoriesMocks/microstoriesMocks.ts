@@ -80,3 +80,14 @@ export const microstoryListMockById = [
     author: "Tomenos",
   },
 ];
+
+export const microMockData = {
+  id: "",
+  title: "The Lost Key",
+  dateOfCreation: "2022-10-15",
+  genre: "Horror",
+  isPublic: true,
+  image: "https://example.com/images/lost-key.jpg",
+  story: "In a quiet town, a mysterious key was discovered...",
+  author: "Tomas",
+};

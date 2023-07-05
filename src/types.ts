@@ -1,5 +1,8 @@
 import { type Request } from "express";
-import { type RequestCreateMicroData } from "./server/controllers/types";
+import {
+  type MicrostoryStructureData,
+  type RequestCreateMicroData,
+} from "./server/controllers/types";
 
 export interface UserCredentials {
   username: string;
@@ -39,4 +42,9 @@ export interface CustomCountRequest extends Request {
     filter?: string;
     filterValue?: string;
   };
+}
+
+export interface CustomRequestModify extends Request {
+  userId: string;
+  body: MicrostoryStructureData;
 }

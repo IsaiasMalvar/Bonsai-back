@@ -4,6 +4,7 @@ interface PathStructure {
   userController: string;
   microsController: string;
   createController: string;
+  modifyController: string;
 }
 
 export default PathStructure;

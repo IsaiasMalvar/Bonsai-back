@@ -2,6 +2,7 @@ import { type NextFunction, type Response } from "express";
 import createDebug from "debug";
 import Microstory from "../../../database/models/Microstory.js";
 import {
+  type CustomRequestModify,
   type CustomCountRequest,
   type CustomCreateRequest,
   type CustomParamRequest,
@@ -120,6 +121,29 @@ export const getMicrostory = async (
 
     res.status(statusCodeList.ok).json({ microById });
   } catch (error) {
+    next(error);
+  }
+};
+
+export const modifyMicrostory = async (
+  req: CustomRequestModify,
+  res: Response,
+  next: NextFunction
+) => {
+  const { body } = req;
+
+  try {
+    const micro = await Microstory.findByIdAndUpdate(
+      { _id: body.id },
+      {
+        ...body,
+      }
+    ).exec();
+
+    return res.status(200).json({ micro });
+  } catch (error: unknown) {
+    debug(chalk.redBright((error as Error).message));
+    (error as Error).message = "Could not update the desired micro";
     next(error);
   }
 };
