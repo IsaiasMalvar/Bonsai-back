@@ -6,7 +6,7 @@ const paths: PathStructure = {
   userController: "/user",
   microsController: "/micros",
   createController: "/create",
-  modifyController: "/updateMicro",
+  modifyController: "/modifyMicrostory",
 };
 
 export default paths;
